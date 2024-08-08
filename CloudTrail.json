@@ -1,0 +1,55 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "RequireMultiRegionTrailWithReadAndWriteManagementEvents",
+      "Effect": "Deny",
+      "Action": [
+        "cloudtrail:StopLogging",
+        "cloudtrail:DeleteTrail"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringNotEquals": {
+          "aws:RequestedRegion": [
+            "us-east-1",
+            "us-west-1",
+            "us-west-2",
+            "eu-west-1",
+            "eu-central-1",
+            "ap-southeast-1",
+            "ap-southeast-2",
+            "ap-northeast-1",
+            "ap-northeast-2",
+            "sa-east-1",
+            "ca-central-1"
+          ]
+        },
+        "StringEquals": {
+          "cloudtrail:ManagementEventReadWriteType": [
+            "All"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "EnsureCloudTrailIsEnabled",
+      "Effect": "Deny",
+      "Action": [
+        "cloudtrail:UpdateTrail",
+        "cloudtrail:CreateTrail"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "BoolIfExists": {
+          "cloudtrail:IsMultiRegionTrail": "false"
+        },
+        "StringEqualsIfExists": {
+          "cloudtrail:ManagementEventReadWriteType": [
+            "None"
+          ]
+        }
+      }
+    }
+  ]
+}
