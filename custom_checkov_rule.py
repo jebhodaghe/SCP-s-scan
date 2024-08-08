@@ -16,7 +16,7 @@ class CustomSCPCheck(BaseJsonCheck):
     def scan_entity_conf(self, conf, entity_type):
         if 'Sid' in conf:
             if conf['Sid'] == 'RequireMultiRegionTrailWithReadAndWriteManagementEvents':
-                if not (conf['Condition'].get('StringEquals') and 'cloudtrail:ManagementEventReadWriteType' in conf['Condition']['StringEquals'] and conf['Condition']['StringEquals']['cloudtrail:ManagementEventReadWriteType'] == ['All']):
+                if not (conf['Condition'].get('StringEquals') and 'cloudtrail:ManagementEventReadWriteType' in conf['Condition']['StringEquals'] and conf['Condition']['StringEquals']['cloudtrail:ManagementEventReadWriteType'] == ["All"]):
                     return CheckResult.FAILED
         return CheckResult.PASSED
 
