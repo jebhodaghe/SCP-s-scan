@@ -16,6 +16,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: List files
+        run: ls -R
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -25,4 +28,5 @@ jobs:
         run: pip install checkov
 
       - name: Run Checkov scan
-        run: checkov -f ./misconfigured-scp-policy.json
+        run: |
+          find . -name "*.json" -print0 | xargs -0 checkov -f
