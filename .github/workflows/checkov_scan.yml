@@ -8,23 +8,21 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read  # Only read access is given to the contents of the repository
-
 jobs:
-  checkov_scan:
+  checkov:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
+          python-version: '3.x'
 
       - name: Install Checkov
         run: pip install checkov
 
-      - name: Run Checkov
-        run: checkov -d .
+      - name: Run Checkov scan
+        run: checkov -f ./path/to/your/scp-policy.json
