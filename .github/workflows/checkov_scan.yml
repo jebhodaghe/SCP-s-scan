@@ -29,4 +29,4 @@ jobs:
 
       - name: Run Checkov scan
         run: |
-          find . -name "*.json" -print0 | xargs -0 checkov -f
+          find . -name "*.json" -print0 | xargs -0 -I {} sh -c 'checkov -f {} || exit 1'
