@@ -27,7 +27,8 @@
         },
         "StringEquals": {
           "cloudtrail:ManagementEventReadWriteType": [
-            "All"
+            "Read",
+            "Write"
           ]
         }
       }
